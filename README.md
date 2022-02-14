@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+## Description of the architecture
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### App
 
-## Available Scripts
+In this component, it's been used the "useSearchParams" hooks that allows to get or set a parameters of the route. Every time the user clicks the go back button, in the route will be displayed the previous parameter inserted into it. Hence the "searchQuery" variable will change value, it'll trigger the useEffect hook and it'll get the data from the get request, based on the parameter of the route.
+The "onSubmit" function works as callback for the List component, once the user enter a not empty value, the function will call the "setSearchParams" setter state, making automaticaly change the value of the "searchQuery" variable and triggering the useEffect hook to get the new data
 
-In the project directory, you can run:
+### SearchBox component
 
-### `npm start`
+This component allows the user to enter and execute the axios get request. When the user clicks on the button "Execute query" or it presses Enter, the component will call the "onSubmit" callback. This one is provided by the "App" component and it sets the "searchParams" to the value entered in the text input field. Consequently the "useEffect" in the "App" component will be called and it'll execute the axios get request, since the "searchQuery" will change value and this variable is a dependency of the "useEffect" hook.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### List component
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This component displays the data got from the axios get request and it manages the pagination.
+The "ELEMENTS_TO_SHOW" variable indicates the number of elements to show in one page.
+The "MAX_NUMBER_OF_PAGE" variable computes the maximum number of pages that can be displayed.
+The "showPreviousButton" and "showNextButton" functions check if the corrisponding buttons should be shown or not, depending on the variable "currentPage".
+The function "getRows" allows to render 10 items per page, it does it by calculating the start and the end of the items to display and slicing the array of the items with these two values, then the component "ResultItem" will handle the render of the specific item.
+In the case the list of items is empty, it'll only be displayed a message that says no result is found.
 
-### `npm test`
+## Instructions to run the app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+First of all you need to execute:
 
-### `npm run build`
+### npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+and then you can run it with
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### npm start
